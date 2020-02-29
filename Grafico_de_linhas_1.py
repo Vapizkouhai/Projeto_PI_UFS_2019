@@ -8,6 +8,7 @@ with urllib.request.urlopen('http://albertocn.sytes.net/2019-2/pi/projeto/geraca
   mes = '12'
   meses = {'01':'Janeiro', '02':'Fevereiro', '03':'Março', '04':'Abril', '05':'Maio', '06':'Junho', '07':'Julho', '08':'Agosto', '09':'Setembro', '10':'Outubro', '11':'Novembro', '12':'Dezembro'}  
   grafico = plt.figure()
+  plt.style.use('seaborn')
   axis1 = grafico.add_subplot(2, 2, 1)
   if mes in list(meses.keys()):
     for dia in energia_ano:
@@ -23,4 +24,7 @@ with urllib.request.urlopen('http://albertocn.sytes.net/2019-2/pi/projeto/geraca
     axis1.set_title('Energia Gerada por Dia no Mês de ' + meses[mes])
   else:   
     axis1.set_title('Mês ' + mes + ' não existente')
+  axis2 = grafico.add_subplot(2, 2, 2)
+  axis3 = grafico.add_subplot(2, 1, 2)
+  grafico.subplots_adjust(left=.07, bottom=.07, right=.95, top=.95, wspace=.15, hspace=.22)
   plt.show()
