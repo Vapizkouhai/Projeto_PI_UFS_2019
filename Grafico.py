@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt, urllib.request, json
 with urllib.request.urlopen('http://albertocn.sytes.net/2019-2/pi/projeto/geracao_energia.json') as url:
   energia_ano = json.loads(url.read().decode())
   valores = list()
-  listaEnergiaDia = list()
+  listaEnergiaDiaLinhas = list()
   diasGraficoLinhas = list()
   mesGraficoLinhas = '12'
   meses = {'01':'Janeiro', '02':'Fevereiro', '03':'Março', '04':'Abril', '05':'Maio', '06':'Junho', '07':'Julho', '08':'Agosto', '09':'Setembro', '10':'Outubro', '11':'Novembro', '12':'Dezembro'}  
@@ -16,15 +16,28 @@ with urllib.request.urlopen('http://albertocn.sytes.net/2019-2/pi/projeto/geraca
     for dado in valores:
       if dado[0][5:7] == mesGraficoLinhas:
         diasGraficoLinhas.append(dado[0][8:])
-        listaEnergiaDia.append(dado[2])
-    axis1.plot(diasGraficoLinhas, listaEnergiaDia)
+        listaEnergiaDiaLinhas.append(dado[2])
+    axis1.plot(diasGraficoLinhas, listaEnergiaDiaLinhas)
     axis1.set_ylabel('Energia Gerada (Kwh)')
     axis1.set_xlabel('Dias de Produção')
     axis1.set_title('Energia Gerada por Dia no Mês de ' + meses[mesGraficoLinhas])
   else:   
     axis1.set_title('Mês ' + mesGraficoLinhas + ' não existente')
   axis2 = grafico.add_subplot(2, 2, 2)
-  
+  listaEnergiaDiaBarras = list()
+  diasGraficoBarras = list()
+  mesGraficoBarras = '01'
+  if mesGraficoBarras in list(meses.keys()):
+    for dado in valores:
+      if dado[0][5:7] == mesGraficoBarras:
+        diasGraficoBarras.append(dado[0][8:])
+        listaEnergiaDiaBarras.append(dado[2])
+    axis2.bar(diasGraficoBarras, listaEnergiaDiaBarras, color='green')
+    axis2.set_xlabel('Dias de Produção')
+    axis2.set_ylabel('Energia em kwh')
+    axis2.set_title('Energia Gerada por Dia no Mês de ' + meses[mesGraficoBarras])
+  else:
+    axis2.set_title('Mês ' + mesGraficoBarras + ' não existente')
   axis3 = grafico.add_subplot(2, 1, 2)
   boxplotVerão = list()
   boxplotOutono = list()
@@ -44,5 +57,5 @@ with urllib.request.urlopen('http://albertocn.sytes.net/2019-2/pi/projeto/geraca
   axis3.set_ylabel('Energia Gerada (Kwh)')
   axis3.set_xlabel('Estações Meteorológicas')
   axis3.set_title('Energia Gerada em Cada Estação Meteorológica')
-  grafico.subplots_adjust(left=.07, bottom=.07, right=.95, top=.95, wspace=.15, hspace=.22)
+  grafico.subplots_adjust(left=.07, bottom=.07, right=.95, top=.95, wspace=.15, hspace=.27)
   plt.show()
