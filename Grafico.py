@@ -24,7 +24,13 @@ with urllib.request.urlopen('http://albertocn.sytes.net/2019-2/pi/projeto/geraca
   else:   
     axis1.set_title('Mês ' + mesGraficoLinhas + ' não existente')
   axis2 = grafico.add_subplot(2, 2, 2)
-  
+   diasGraficoBarras = diasGraficoLinhas
+  mesGraficoBarras = '09'
+  plt.bar(diasGraficoBarras,listaEnergiaDia,color='green')
+  plt.xticks(diasGraficoBarras)
+  plt.xlabel('Dias de produção do mês :',mesGraficoBarras)
+  plt.ylabel('Energia em kwh')
+  plt.tittle('Energia Gerada por dia no mês :',meses[mesGraficoBarras])
   axis3 = grafico.add_subplot(2, 1, 2)
   boxplotVerão = list()
   boxplotOutono = list()
